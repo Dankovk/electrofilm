@@ -1,0 +1,191 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <!-- partial:include('page/meta.partial.html') -->
+
+        <!-- Example styles, shoud be deleted -->
+        <style>
+            .grid-highlight.row {
+                margin-bottom: 20px;
+            }
+
+            .grid-highlight.row > div > div {
+                font-size: 14px;
+                background: #ccc;
+                padding: 10px;
+                display: block;
+            }
+
+            .form-group.has-success {
+                color: green;
+            }
+
+            .form-group.has-error {
+                color: red;
+            }
+
+            .form-group.validating {
+                color: orange;
+            }
+
+            button[disabled],
+            html input[disabled] {
+                color: gray;
+            }
+
+            .form-control.readonly {
+                background-color: gray;
+            }
+
+            .help-block {
+                margin: 0;
+            }
+
+            .error-text {
+                padding-top: 20px;
+                display: block;
+            }
+
+            .collapse {
+                display: none;
+                visibility: hidden;
+            }
+
+            .collapse.in {
+                display: block;
+                visibility: visible;
+            }
+
+            .collapsing {
+                position: relative;
+                height: 0;
+                overflow: hidden;
+                -webkit-transition-timing-function: ease;
+                     -o-transition-timing-function: ease;
+                        transition-timing-function: ease;
+                -webkit-transition-duration: .35s;
+                     -o-transition-duration: .35s;
+                        transition-duration: .35s;
+                -webkit-transition-property: height, visibility;
+                     -o-transition-property: height, visibility;
+                        transition-property: height, visibility;
+            }
+        </style>
+
+    </head>
+    <body>
+        <!-- partial:include('layout/header.partial.html') -->
+
+        <div class="layout-content">
+
+            <div class="layout-container">
+
+                <form id="my-form" data-toggle="popel-validator">
+
+                    <div class="form-group">
+                        <label for="firstname">First name:</label>
+                        <input id="firstname" name="fname" type="text" class="form-control"
+                            data-rules="not-empty min-length max-length"
+                            data-min-length="3"
+                            data-max-length="255">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastname">Last name:</label>
+                        <input id="lastname" name="lname" type="text" class="form-control"
+                            data-rules="not-empty min-length max-length"
+                            data-min-length="3"
+                            data-max-length="255">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-mail:</label>
+                        <input id="email" name="email" type="email" class="form-control"
+                            data-rules="not-empty min-length max-length email email-unique"
+                            data-min-length="3"
+                            data-max-length="255">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input id="password" name="pass" type="password" class="form-control"
+                            data-rules="not-empty min-length password"
+                            data-min-length="8">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password-confirm">Confirm password:</label>
+                        <input id="password-confirm" name="pass2" type="password" class="form-control"
+                            data-rules="not-empty same-as"
+                            data-same-as="pass">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input id="phone" name="phone" type="tel" class="form-control"
+                            data-rules="min-length max-length"
+                            data-min-length="7"
+                            data-max-length="15">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary disabled" disabled>Submit</button>
+
+                </form>
+
+            </div>
+        </div>
+
+        <!-- partial:include('layout/footer.partial.html') -->
+
+        <!-- partial:include('page/footer.partial.html') -->
+
+        <script>(function ($) {
+
+            // Redefine some default values
+            $.fn.popelValidator.defaults.messageTemplate     = '<p class="help-block collapse"><span class="message-text"></span></p>';
+            $.fn.popelValidator.defaults.messageTextSelector = '.message-text';
+
+            // Custom async rule example
+            $.fn.popelValidator.addRule('email-unique', function (value) {
+                var promise = $.Deferred();
+
+                window.setTimeout(function () {
+                    var rand = Math.round(Math.random());
+
+                    promise[rand === 1 ? 'resolve' : 'reject']();
+                }, 1000);
+
+                return promise;
+            });
+
+            // Custom error messages example
+            $.fn.popelValidator.setRuleMessage({
+                email: "Введите корректный e-mail",
+                'email-unique': "E-mail :value уже занят"
+            });
+
+            // Use collapse to show field errors
+            $(document).on('controlvalidated.popel.validator', '.form-control', function (event) {
+                var state  = event.state;
+
+                if (state === $.fn.popelValidator.Constructor.STATE_INVALID) {
+                    $(this).closest('.form-group').find('.help-block').collapse('show');
+                }
+            });
+
+            // Remove field errors after collapse hide animation finishes
+            $(document).on('resetcontrolmessage.popel.validator', '.form-control', function (event) {
+                event.preventDefault();
+
+                var $message = $(event.relatedTarget);
+
+                $message.collapse('hide').one('hidden.bs.collapse', function () {
+                    $message.remove();
+                });
+            });
+
+        })(window.jQuery);</script>
+
+    </body>
+</html>
+

@@ -1,0 +1,84 @@
+{
+    "path": {
+        "production": "dist/",
+        "development": "dev/",
+        "source": "src/",
+
+        "font": {
+            "src": "fonts",
+            "dest": "fonts"
+        },
+        "html": {
+            "partials": "partials"
+        },
+        "image": {
+            "src": "images",
+            "dest": "images"
+        },
+        "script": {
+            "src": "scripts",
+            "dest": "scripts",
+            "vendor": "scripts/vendor"
+        },
+        "sprite": {
+            "src": "sprites",
+            "dest": "images"
+        },
+        "icon": {
+            "src": "icons",
+            "dest": "icons"
+        },
+        "style": {
+            "src": "styles",
+            "dest": "styles",
+            "vendor": "styles/vendor"
+        },
+        "misc": {
+            "src": "misc",
+            "dest": "dist",
+            "files": [
+                "favicon.ico",
+
+                "favicon.png",
+                "favicon-+([0-9])x+([0-9]).png",
+
+                "apple-touch-icon.png",
+                "apple-touch-icon-precomposed.png",
+                "apple-touch-icon-+([0-9])x+([0-9]).png",
+
+                "mstile.png",
+                "mstile-+([0-9])x+([0-9]).png",
+
+                "browserconfig.xml",
+                "crossdomain.xml",
+
+                "robots.txt",
+                "humans.txt"
+            ]
+        }
+    },
+
+    "formats": {
+        "font": ["eot", "otf", "ttf", "svg", "woff", "woff2"],
+        "image": ["jpg", "png", "svg"],
+        "script": "js",
+        "style": "scss"
+    },
+
+    "server": {
+        "port": 9000
+    },
+
+    "sprite": {
+        "retina": false,
+        "name": "sprite.png"
+    },
+
+    "partials": {
+        "prefix": "<!-- partial:",
+        "suffix": " -->",
+        "context": {
+            "compileJs": false
+        }
+    }
+}
