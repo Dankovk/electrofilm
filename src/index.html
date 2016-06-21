@@ -4,9 +4,261 @@
     <!-- partial:include('page/meta.partial.html', {
         "compileJs": true
     }) -->
+    <style>
+        #loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+        }
+        #loader {
+            display: block;
+            position: relative;
+            left: 50%;
+            top: 50%;
+            width: 150px;
+            height: 150px;
+            margin: -75px 0 0 -75px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #fff!important;
+
+            -webkit-animation: spin 2s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+            animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+
+            z-index: 1001;
+        }
+
+        #loader:before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #fff!important;
+
+            -webkit-animation: spin 3s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+            animation: spin 3s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+        }
+
+        #loader:after {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #fff!important;
+
+            -webkit-animation: spin 1.5s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+            animation: spin 1.5s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+        }
+
+        @-webkit-keyframes spin {
+            0%   {
+                -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+                -ms-transform: rotate(0deg);  /* IE 9 */
+                transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+            }
+            100% {
+                -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+                -ms-transform: rotate(360deg);  /* IE 9 */
+                transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+            }
+        }
+        @keyframes spin {
+            0%   {
+                -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+                -ms-transform: rotate(0deg);  /* IE 9 */
+                transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+            }
+            100% {
+                -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+                -ms-transform: rotate(360deg);  /* IE 9 */
+                transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+            }
+        }
+
+        #loader-wrapper .loader-section {
+            position: fixed;
+            top: 0;
+            width: 51%;
+            height: 100%;
+            background: #222222;
+            z-index: 1000;
+            -webkit-transform: translateX(0);  /* Chrome, Opera 15+, Safari 3.1+ */
+            -ms-transform: translateX(0);  /* IE 9 */
+            transform: translateX(0);  /* Firefox 16+, IE 10+, Opera */
+        }
+
+        #loader-wrapper .loader-section.section-left {
+            left: 0;
+        }
+
+        #loader-wrapper .loader-section.section-right {
+            right: 0;
+        }
+
+        /* Loaded */
+        .loaded #loader-wrapper .loader-section.section-left {
+            -webkit-transform: translateX(-100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+            -ms-transform: translateX(-100%);  /* IE 9 */
+            transform: translateX(-100%);  /* Firefox 16+, IE 10+, Opera */
+
+            -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+            transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+        }
+
+        .loaded #loader-wrapper .loader-section.section-right {
+            -webkit-transform: translateX(100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+            -ms-transform: translateX(100%);  /* IE 9 */
+            transform: translateX(100%);  /* Firefox 16+, IE 10+, Opera */
+
+            -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+            transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+        }
+
+        .loaded #loader {
+            opacity: 0;
+            -webkit-transition: all 0.3s ease-out;
+            transition: all 0.3s ease-out;
+        }
+        .loaded #loader-wrapper {
+            visibility: hidden;
+
+            -webkit-transform: translateY(-100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+            -ms-transform: translateY(-100%);  /* IE 9 */
+            transform: translateY(-100%);  /* Firefox 16+, IE 10+, Opera */
+
+            -webkit-transition: all 0.3s 1s ease-out;
+            transition: all 0.3s 1s ease-out;
+        }
+
+        /* JavaScript Turned Off */
+        .no-js #loader-wrapper {
+            display: none;
+        }
+        .no-js h1 {
+            color: #222222;
+        }
+
+        #content {
+            margin: 0 auto;
+            padding-bottom: 50px;
+            width: 80%;
+            max-width: 978px;
+        }
+
+
+
+
+
+
+        /* ==========================================================================
+           Helper classes
+           ========================================================================== */
+
+        /*
+         * Image replacement
+         */
+
+        .ir {
+            background-color: transparent;
+            border: 0;
+            overflow: hidden;
+            /* IE 6/7 fallback */
+            *text-indent: -9999px;
+        }
+
+        .ir:before {
+            content: "";
+            display: block;
+            width: 0;
+            height: 150%;
+        }
+
+        /*
+         * Hide from both screenreaders and browsers: h5bp.com/u
+         */
+
+        .hidden {
+            display: none !important;
+            visibility: hidden;
+        }
+
+        /*
+         * Hide only visually, but have it available for screenreaders: h5bp.com/v
+         */
+
+        .visuallyhidden {
+            border: 0;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+        }
+
+        /*
+         * Extends the .visuallyhidden class to allow the element to be focusable
+         * when navigated to via the keyboard: h5bp.com/p
+         */
+
+        .visuallyhidden.focusable:active,
+        .visuallyhidden.focusable:focus {
+            clip: auto;
+            height: auto;
+            margin: 0;
+            overflow: visible;
+            position: static;
+            width: auto;
+        }
+
+        /*
+         * Hide visually and from screenreaders, but maintain layout
+         */
+
+        .invisible {
+            visibility: hidden;
+        }
+
+        /*
+         * Clearfix: contain floats
+         *
+         * For modern browsers
+         * 1. The space content is one way to avoid an Opera bug when the
+         *    `contenteditable` attribute is included anywhere else in the document.
+         *    Otherwise it causes space to appear at the top and bottom of elements
+         *    that receive the `clearfix` class.
+         * 2. The use of `table` rather than `block` is only necessary if using
+         *    `:before` to contain the top-margins of child elements.
+         */
+        #loader-wrapper .loader-section{
+            background: #000!important;
+        }
+        #loader-wrapper{
+            z-index: 99999999;
+        }
+
+    </style>
 </head>
 <body>
+<div id="loader-wrapper">
+    <div id="loader"></div>
 
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+
+</div>
 <div class="layout-content">
     <div class="header">
         <div class="layout-container">
@@ -32,7 +284,192 @@
     </div>
     <div id="fullpage">
         <div class="section">
+            <div class="layout-container">
+                <div class="row">
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1">
+                    </div>
+                    <div class="col-xs-8" style="position: static;">
+                        <div class="review-wrap directors-wrap">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <a class="director" href="#">
+                                        <img src="images/dir1.jpg" alt="">
+                                    </a>
+                                    <a class="director" href="#">
+                                        <img src="images/dir1.jpg" alt="">
+                                    </a>
+                                    <a class="director" href="#">
+                                        <img src="images/dir1.jpg" alt="">
+                                    </a>
+                                    <a class="director" href="#">
+                                        <img src="images/dir1.jpg" alt="">
+                                    </a>
+                                    <a class="director" href="#">
+                                        <img src="images/dir1.jpg" alt="">
+                                    </a>
+                                    <a class="director" href="#">
+                                        <img src="images/dir1.jpg" alt="">
+                                    </a>
+                                    <a class="director" href="#">
+                                        <img src="images/dir1.jpg" alt="">
+                                    </a>
+                                    <a class="director" href="#">
+                                        <img src="images/dir1.jpg" alt="">
+                                    </a>
+                                </div>
 
+                            </div>
+                            <div class="films-link">
+                                <a href="#" class="btn">Всі режисери</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-1" style="height:100vh;">
+                        <a href="#" class="screen-nav-arrow nav-down-arrow down-arrow">
+                            <span class="aw-long-arrow-down"></span>
+                        </a>
+                    </div>
+                    <div class="col-xs-1"></div>
+                </div>
+            </div>
+            <div class="nav">
+                <ul>
+                    <li>
+                        <a class="current-link" href="#">
+                            Режисери
+                        </a>
+                    </li>
+                    <li>
+                        <a   href="#">
+                            Рецензії
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Фільми
+                        </a>
+                    </li>
+                    <li>
+                        <a  href="#mainPage">
+                            Electro.Film
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#mainPage">
+                            Про проект
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Афіша
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Контакти
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="section">
+            <div class="layout-container">
+                <div class="row">
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1">
+                        <a href="#" class="screen-nav-arrow nav-up-arrow">
+                            <span class="aw-long-arrow-up"></span>
+                        </a>
+                    </div>
+                    <div class="col-xs-8" style="position: static;">
+                        <div class="review-wrap">
+                            <div class="row">
+                                <div class="col-xs-6" style="position: static;">
+                                    <div class="review">
+                                        <a href="#" class="inherit">
+                                            <h1>Білі слони(2014)</h1>
+                                        </a>
+                                        <a class="review-image" href="#" style="background-image:url('images/event.jpg')">
+
+                                        </a>
+                                        <a href="#">
+                                            <p class="rewiev-part">
+                                                Читающим наше Новое Первое Неожиданное.Только мы — лицо нашего Времени. Рог времени трубит нами в словесном искусстве.Прошлое тесно. Академия и Пушкин — непонятнее гиеро...
+                                            </p>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6" style="position: static;">
+                                    <div class="review">
+                                        <a href="#" class="inherit">
+                                            <h1>Білі слони(2014)</h1>
+                                        </a>
+                                        <a  class="review-image" href="#" style="background-image:url('images/event.jpg')">
+                                        </a>
+                                        <a href="#">
+                                            <p class="rewiev-part">
+                                                Читающим наше Новое Первое Неожиданное.Только мы — лицо нашего Времени. Рог времени трубит нами в словесном искусстве.Прошлое тесно. Академия и Пушкин — непонятнее гиеро...
+                                            </p>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="films-link">
+                                <a href="#" class="btn">Всі рецензії</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-1" style="height:100vh;">
+                        <a href="#" class="screen-nav-arrow nav-down-arrow down-arrow">
+                            <span class="aw-long-arrow-down"></span>
+                        </a>
+                    </div>
+                    <div class="col-xs-1"></div>
+                </div>
+            </div>
+            <div class="nav">
+                <ul>
+                    <li>
+                        <a href="#">
+                            Режики
+                        </a>
+                    </li>
+                    <li>
+                        <a class="current-link"  href="#">
+                            Рецензии
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Фильмы
+                        </a>
+                    </li>
+                    <li>
+                        <a  href="#mainPage">
+                            Electro.Film
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#mainPage">
+                            Про проект
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Афиша
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Контакты
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div class="section">
 
@@ -47,15 +484,19 @@
                     <div class="col-xs-8" style="position: static;">
                         <div class="posters">
                             <a href="" class="poster">
-
+                                <img src="images/film1.jpg" alt="">  
                             </a>
                             <a href="" class="poster">
-
+                                <img src="images/film1.jpg" alt="">
                             </a>
                             <a href="" class="poster">
-
+                                <img src="images/film2.jpg" alt="">
                             </a>
+                            <div class="films-link">
+                                <a href="#" class="btn">Все фильмы</a>
+                            </div>
                         </div>
+
                     </div>
                     <div class="col-xs-1" style="height:100vh;">
                         <a href="#" class="screen-nav-arrow nav-down-arrow down-arrow">
@@ -230,54 +671,264 @@
             </div>
         </div>
         <div class="section">
-            <div class="test-block">
-                <h1>Test</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A dolore facilis fugit neque, nobis odio odit perspiciatis, quia, quidem quo voluptas voluptatem. Necessitatibus, soluta voluptatum? Ipsum odit qui quisquam reprehenderit!</p>
+            <div class="layout-container">
+                <div class="row">
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1">
+                        <a href="#" class="screen-nav-arrow nav-up-arrow">
+                            <span class="aw-long-arrow-up"></span>
+                        </a>
+                    </div>
+                    <div class="col-xs-8" style="position: static;">
+                        <div class="review-wrap about-wrap">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <h2 class="about-head">Про проект</h2>
+                                </div>
+                                <div class="col-xs-9" style="background: #fff;">
+                                    <p>
+                                        Читающим наше Новое Первое Неожиданное.Только мы — лицо нашего Времени. Рог времени трубит нами в словесном искусстве.Прошлое тесно. Академия и Пушкин — непонятнее гиероглифов. Бросить Пушкина, Достоевского, Толстого и проч., и проч., с парохода современности. Кто не забудет своей первой любви, не узнает последней. Кто же, доверчивый, обратит последнюю Любовь к парфюмерному блуду Бальмонта? В ней ли отражения мужественной души сегодняшнего дня? Кто же, трусливый, устрашится стащить бумажные латы с черного фрака воина Брюсова? Или на них зори неведомых красот?Вымойте ваши руки, прикасавшиеся к грязной слизи книг, написанных этими бесчисленными Леонидами Андреевыми. Всем этим Максимам Горьким, Куприным, Блокам, Сологубам, Ремизовым, Аверченко, Черным, Кузьминым, Буниным и проч., и проч. — нужна лишь дача на реке. Такую награду дает судьба портным. С высоты небоскребов мы взираем на их ничтожество!.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-xs-1" style="height:100vh;">
+                        <a href="#" class="screen-nav-arrow nav-down-arrow down-arrow">
+                            <span class="aw-long-arrow-down"></span>
+                        </a>
+                    </div>
+                    <div class="col-xs-1"></div>
+                </div>
             </div>
             <div class="nav">
                 <ul>
                     <li>
-                        <a href="#">
-                            Режики
+                        <a  href="#">
+                            Режисери
+                        </a>
+                    </li>
+                    <li>
+                        <a   href="#">
+                            Рецензії
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            Рецензии
+                            Фільми
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            Фильмы
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#mainPage">
+                        <a  href="#mainPage">
                             Electro.Film
                         </a>
                     </li>
                     <li>
-                        <a class="current-link active" href="#mainPage">
+                        <a class="current-link" href="#mainPage">
                             Про проект
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            Афиша
+                            Афіша
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            Контакты
+                            Контакти
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
         <div class="section">
-            <div class="test-block">
-                <h1>Test</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A dolore facilis fugit neque, nobis odio odit perspiciatis, quia, quidem quo voluptas voluptatem. Necessitatibus, soluta voluptatum? Ipsum odit qui quisquam reprehenderit!</p>
+            <div class="layout-container">
+                <div class="row">
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1">
+                        <a href="#" class="screen-nav-arrow nav-up-arrow">
+                            <span class="aw-long-arrow-up"></span>
+                        </a>
+                    </div>
+                    <div class="col-xs-8" style="position: static;">
+                        <div class="review-wrap events-wrap">
+                            <div class="row">
+
+                            <div class="col-xs-6">
+                                <div class="box">
+                                    <a href="#" class="event-link" style="background-image: url('images/event2.jpg')">
+
+                                    </a>
+                                    <a href="#" class="event-text">
+                                        <span class="event-span-text">
+                                            Super event 2016
+                                        </span>
+                                    </a>
+                                </div>
+
+                            </div>
+                                <div class="col-xs-6">
+                                    <div class="box">
+                                        <a href="#" class="event-link" style="background-image: url('images/event.jpg')">
+                                            <div class="event-text">
+                                                Super event
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="box">
+                                        <a href="#" class="event-link" style="background-image: url('images/event.jpg')">
+                                            <div class="event-text">
+                                                Super event
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="box">
+                                        <a href="#" class="event-link" style="background-image: url('images/event.jpg')">
+                                            <div class="event-text">
+                                                Super event
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-xs-1" style="height:100vh;">
+                        <a href="#" class="screen-nav-arrow nav-down-arrow down-arrow">
+                            <span class="aw-long-arrow-down"></span>
+                        </a>
+                    </div>
+                    <div class="col-xs-1"></div>
+                </div>
+            </div>
+            <div class="nav">
+                <ul>
+                    <li>
+                        <a  href="#">
+                            Режисери
+                        </a>
+                    </li>
+                    <li>
+                        <a   href="#">
+                            Рецензії
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Фільми
+                        </a>
+                    </li>
+                    <li>
+                        <a  href="#mainPage">
+                            Electro.Film
+                        </a>
+                    </li>
+                    <li>
+                        <a  href="#mainPage">
+                            Про проект
+                        </a>
+                    </li>
+                    <li>
+                        <a class="current-link" href="#">
+                            Афіша
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Контакти
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="section">
+            <div class="layout-container">
+                <div class="row">
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1">
+                        <a href="#" class="screen-nav-arrow nav-up-arrow">
+                            <span class="aw-long-arrow-up"></span>
+                        </a>
+                    </div>
+                    <div class="col-xs-8" style="position: static;">
+                        <div class="review-wrap footer-wrap">
+                            <div class="row">
+                                    <div class="col-xs-12 footer-col">
+
+                                            <p>+380 (96) 312 89 74</p>
+                                            <p>+380 (96) 312 89 74</p>
+                                            <p>email@electro.film</p>
+
+                                    </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-xs-1" style="height:100vh;">
+
+                    </div>
+                    <div class="col-xs-1"></div>
+                </div>
+
+
+                        <div class="social footer-social">
+                            <span class="aw-facebook"></span>
+                            <span class="aw-vk"></span>
+                            <span class="aw-youtube-play"></span>
+                            <span class="aw-vimeo"></span>
+                        </div>
+
+            </div>
+            <div class="nav footer-nav">
+                <ul>
+                    <li>
+                        <a  href="#">
+                            Режисери
+                        </a>
+                    </li>
+                    <li>
+                        <a   href="#">
+                            Рецензії
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Фільми
+                        </a>
+                    </li>
+                    <li>
+                        <a  href="#mainPage">
+                            Electro.Film
+                        </a>
+                    </li>
+                    <li>
+                        <a  href="#mainPage">
+                            Про проект
+                        </a>
+                    </li>
+                    <li>
+                        <a  href="#">
+                            Афіша
+                        </a>
+                    </li>
+                    <li>
+                        <a class="current-link" href="#">
+                            Контакти
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
