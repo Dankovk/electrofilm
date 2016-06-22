@@ -3,6 +3,7 @@
 
     $('#fullpage').fullpage({
         slideSelector: '.full-slide',
+        anchors:[ 'directors','reviews','movies','mainPage', 'about',  'events', 'contacts'],
         onLeave: function(index, nextIndex, direction){
             var leavingSection = $(this);
             leavingSection.find('.nav .active').removeClass('active');
@@ -26,6 +27,8 @@
        //      top: offset + 340
        //  });
         $('.bxslider').bxSlider();
+        $('.find input').val('');
+        $('.section.active .current-link').addClass('active');
     });
   $('.find span').on('click',function(){
       $(this).parent().find('input').focus();
@@ -33,6 +36,9 @@
   });
     $('.find input').on('blur', function(){
         $('.find').removeClass('active');
+    });
+    $('.find input').on('focus', function(){
+        $('.find').addClass('active');
     });
 $('.nav-up-arrow').on('click', function () {
         $.fn.fullpage.moveSectionUp();
