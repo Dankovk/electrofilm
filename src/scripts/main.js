@@ -21,7 +21,7 @@
     $(document).on('ready', function(){
         setTimeout(function(){
             $('body').addClass('loaded');
-        }, 300);
+        }, 500);
        // var offset =  $('#myCarousel').find('.active').find('img').offset().top;
        //  $('.carousel-ind-wrap').css({
        //      top: offset + 340
