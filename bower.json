@@ -21,7 +21,10 @@
     "selectize": "~0.12.0",
     "selectize-scss": "~0.8.9",
     "inuit-normalize": "~3.0.3",
-    "jquery.gifplayer": "^0.3.2"
+    "jquery.gifplayer": "^0.3.2",
+    "bootstrap-sass": "^3.3.6",
+    "fullpage.js": "^2.8.2",
+    "bxslider-4": "^4.2.5"
   },
   "resolutions": {
     "bootstrap": "~3.3.4",
