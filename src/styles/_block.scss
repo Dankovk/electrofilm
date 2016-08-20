@@ -113,7 +113,10 @@ body{
   left: 0;
   width: 100vw;
   z-index: 0;
-  ul{
+  @include respond (small-screen){
+    width: auto;
+  }
+    ul{
     margin: 0;
     padding:0;
     li{
@@ -325,7 +328,7 @@ body{
     img{
       width: 100%;
       height: 100%;
-      filter: grayscale(0%);
+      filter: grayscale(100%);
       transition: all .3s linear;
     }
 
@@ -361,19 +364,19 @@ body{
       }
     }
     &:hover{
-     .poster-caption{
-       opacity: 1;
+     img{
+       filter: grayscale(0);
      }
     }
   }
 }
 .films-link{
   position: absolute;
-  bottom: -70px;
+  bottom: -65px;
   right: 0;
 }
 .review{
-  height: 380px;
+  height: 378px;
   overflow: hidden;
   a{
     display: block;
@@ -385,7 +388,7 @@ body{
       font-weight: bold;
       text-transform: uppercase;
       margin-top: 0;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
     p{
       margin-top: 23px;
@@ -439,7 +442,7 @@ body{
         max-width: 100%;
         height: 100%;
         width: 100%;
-        filter: grayscale(0%);
+        filter: grayscale(100%);
         transition: all .3s linear;
       }
       margin-right: 30px;
@@ -499,6 +502,7 @@ body{
     font-weight: 300;
     text-indent: 30px;
     text-align: justify;
+    margin-bottom: 0;
   }
 }
 .events-wrap{
@@ -562,7 +566,7 @@ body{
     margin-bottom: 30px;
     transition: all .3s linear;
     overflow: hidden;
-    filter: grayscale(0);
+    filter: grayscale(100%);
     background-size: cover;
   }
   .event-text{
@@ -579,7 +583,9 @@ body{
     font-size: 20px;
   }
   &:hover{
-
+    .event-link{
+      filter: grayscale(0);
+    }
     .event-text{
       opacity: 1;
       background-color: rgba(0,0,0,.6);
@@ -604,7 +610,7 @@ body{
   img{
     width: 100%;
     height: 100%;
-    filter: grayscale(0%);
+    filter: grayscale(100%);
     transition: all .3s linear;
   }
   .director-name{
@@ -634,6 +640,9 @@ body{
   &.movie-arc{
     position: relative;
     height: auto;
+    img{
+      filter: grayscale(100%)
+    }
     .poster-caption{
       position: absolute;
       z-index: 2;
@@ -666,6 +675,9 @@ body{
       }
     }
     &:hover{
+      img{
+        filter: grayscale(0)
+      }
       .poster-caption{
         opacity: 1;
       }
@@ -711,16 +723,19 @@ body{
     font-size: 12px;
     background-color: #000;
     color: #fff;
+    padding: 0 2px;
     text-transform: uppercase;
   }
   .find{
     float: right;
-
+    cursor: pointer;
     input{
       width: 20px;
       border: none;
       background: transparent;
+      cursor: pointer;
       top:0;
+      opacity: 0;
       right: 0;
       z-index: 455;
       height: 24px;
@@ -735,8 +750,10 @@ body{
     }
     &.active{
       input{
+        cursor: text;
         right: 0;
         width: 785px;
+        opacity: 1;
         background: #fff;
       }
     }
@@ -763,6 +780,7 @@ body{
     margin-top: 0;
     margin-bottom: 20px;
     line-height: 20px;
+    color: #000;
   }
 }
 .dir-film-header{
@@ -776,9 +794,8 @@ body{
   display: none!important;
 }
 .dir-film-gif{
-  img{
-    width: 100%;
-  }
+  height: 205px;
+  background-size: cover;
 }
 .dir-film-header{
   h2{
@@ -796,9 +813,13 @@ body{
 
 }
 .film-iframe-row{
+  p{
+    margin-top: 0;
+  }
   iframe{
     width: 100%!important;
     height: 400px;
+
   }
 }
 .film-tabs{
@@ -854,7 +875,8 @@ padding: 0;
   }
 }
 .search-wrap{
-  padding-top: 40px;
+  padding-top: 0;
+  margin-top: -23px;
   p{
     font-size: 12px;
     text-align: justify;
@@ -867,7 +889,7 @@ padding: 0;
 }
 .search-item{
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
   border-bottom: 1px solid #000;
   margin-bottom: 20px;
 }
@@ -991,4 +1013,12 @@ body{
 }
 .director-arc img{
   display: block;
+}
+.fin{
+  cursor: pointer;
+}
+.review-row.movie-rev{
+  .review-thumbnail img{
+    margin-top: 0!important;
+  }
 }

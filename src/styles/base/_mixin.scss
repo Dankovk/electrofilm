@@ -180,6 +180,11 @@
             @content;
         }
     }
+    @else if $device == small-screen {
+      @media  (max-width: 1100px) {
+        @content;
+      }
+    }
 }
 
 /* Font-face mixin

@@ -73,29 +73,52 @@
     });
 
 
-    $('.animated-gif').gifplayer();
-
-
-    $('.animated-gif').gifplayer('stop');
-
-    $('.gifplayer-wrapper').on({
-        mouseenter: function () {
-            $(this).find('.animated-gif').gifplayer('play');
-        },
-        mouseleave: function () {
-            $(this).find('.animated-gif').gifplayer('stop');
-        }
-    });
+    // $('.animated-gif').gifplayer();
+    //
+    //
+    // $('.animated-gif').gifplayer('stop');
+    //
+    // $('.gifplayer-wrapper').on({
+    //     mouseenter: function () {
+    //         $(this).find('.animated-gif').gifplayer('play');
+    //     },
+    //     mouseleave: function () {
+    //         $(this).find('.animated-gif').gifplayer('stop');
+    //     }
+    // });
 
     var url = document.location.toString();
     if (url.match('#')) {
         $('.film-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
     }
 
+    window.scrollHeight = $(document).scrollTop();
+    $(window).on('scroll', function(){
+        scrollHeight = $(document).scrollTop();
+    });
 // Change hash for page-reload
+    $('.film-tabs ul a').on('click', function (e) {
+
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        $(this).tab('show');
+        setTimeout(function() {
+            $(window).scrollTop(scrollHeight);
+        }, 5);
+
+    });
+
+
+
     $('.film-tabs ul a').on('shown.bs.tab', function (e) {
+        console.log(scrollHeight);
+        $(window).scrollTop(scrollHeight);
         window.location.hash = e.target.hash;
     })
+    $('.film-tabs ul a').on('show.bs.tab', function(){
+        $(window).scrollTop(scrollHeight);
+    });
 })(window.jQuery);
 
 
