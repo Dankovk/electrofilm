@@ -5,7 +5,7 @@
 
          slider = $('.bxslider').bxSlider({
             auto: true,
-            pause:5000,
+            pause:8000,
             startSlide: findMiddleSlide()
         });
 
