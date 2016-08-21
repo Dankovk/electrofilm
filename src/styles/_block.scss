@@ -328,7 +328,7 @@ body{
     img{
       width: 100%;
       height: 100%;
-      filter: grayscale(100%);
+      filter: grayscale(0);
       transition: all .3s linear;
     }
 
@@ -407,7 +407,6 @@ body{
       width: 100%;
       max-height: 246px;
       filter: grayscale(0%);
-      transition: all .3s linear;
       img{
         max-width: 100%;
         height: 100%;
@@ -442,8 +441,7 @@ body{
         max-width: 100%;
         height: 100%;
         width: 100%;
-        filter: grayscale(100%);
-        transition: all .3s linear;
+        filter: grayscale(0);
       }
       margin-right: 30px;
       &:nth-of-type(4n){
@@ -471,7 +469,11 @@ body{
       }
       &:hover{
         img{
+          display: none;
           filter: grayscale(0%);
+        }
+        .index-dir-gif{
+          display: block!important;
         }
         .director-name{
           opacity: 1;
@@ -566,7 +568,7 @@ body{
     margin-bottom: 30px;
     transition: all .3s linear;
     overflow: hidden;
-    filter: grayscale(100%);
+    filter: grayscale(0%);
     background-size: cover;
   }
   .event-text{
@@ -610,7 +612,7 @@ body{
   img{
     width: 100%;
     height: 100%;
-    filter: grayscale(100%);
+    filter: grayscale(0);
     transition: all .3s linear;
   }
   .director-name{
@@ -641,7 +643,7 @@ body{
     position: relative;
     height: auto;
     img{
-      filter: grayscale(100%)
+      filter: grayscale(0)
     }
     .poster-caption{
       position: absolute;
